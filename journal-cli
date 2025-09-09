@@ -1,0 +1,157 @@
+#!/usr/bin/env bash
+
+source "${HOME}/termfocus/animations"
+
+mkdir -p "${HOME}/.config/entries/"
+
+
+########################################
+
+back () {
+	while true;do
+		read -s -n 1 back
+		if [[ ${back} =~ ^([bB])$ ]];then
+			break
+		fi
+	done
+}
+
+########################################
+
+date_organizer () {
+	echo ""
+	echo ""
+	echo -e "Search by Date in this format [ dd-mm-yyyy ] : "
+	read -p "
+>> " search
+   	Date="${search:0:2}"
+	Month="${search:3:2}"
+	Year="${search:6:4}"
+	converted="${Year}-${Month}-${Date}"
+	FILE="${HOME}/.config/entries/entry_${search}.txt"
+	}
+
+########################################
+
+while true;do
+	clear
+	date "+%d-%m-%Y"
+	echo ""
+	echo ""
+
+	echo -e "${colours[BRIGHT_CYAN]}1]Start a new thought${colours[NC]}"
+	echo -e "${colours[BRIGHT_YELLOW]}2]Look up past entries${colours[NC]}"
+	echo -e "${colours[BRIGHT_GREEN]}3]Edit past entries${colours[NC]}"
+	echo -e "${colours[RED]}4]Delete Entry${colours[NC]}"
+	echo -e "${colours[BRIGHT_MAGNETA]}5]Exit${colours[NC]}"
+	
+	read -s -n 1 option
+	if [[ ${option} == 1 ]];then
+		clear
+		sleep 1s
+		journal="$(date "+%d-%m-%Y")"
+		vim "${HOME}/.config/entries/entry_${journal}.txt"
+	elif [[ ${option} == 2 ]];then
+		clear
+		sleep 0.5s
+		echo -e "${colours[BRIGHT_GREEN]}|||||||<OLD LOGS>|||||||${colours[NC]}"
+		echo ""
+		echo ""
+		ls "${HOME}/.config/entries/" || echo -e "${colours[RED]}No Journal entries found!${colours[NC]}"
+		echo ""
+		echo ""
+		echo -e "${colours[BRIGHT_GREEN]}||||||||||||||||||||||||||||||||${colours[NC]}"
+		date_organizer
+		if date -d "${converted}" > /dev/null  2>&1;then
+			if [[ -f "${FILE}" ]];then
+				clear
+				sleep 1s
+				cat "${FILE}"
+			else
+				echo ""
+				echo ""
+				echo -e "${colours[RED]}Invalid Date!${colours[NC]}"
+			fi
+
+		else
+			echo ""
+			echo ""
+			echo -e "${colours[RED]}Specified entry doesn't exist!${colours[NC]}"
+		fi
+
+		echo ""
+		echo ""
+		echo -e "${colours[WHITE]}Enter 'b' for back.${colours[NC]}"
+		read -t 0.1 -n 1000 discard > /dev/null 2>&1
+		back
+	elif [[ ${option} == 3 ]];then
+		clear
+		sleep 0.5s
+		echo -e "${colours[BRIGHT_CYAN]}||||||||<EDIT MEMORIES>|||||||||${colours[NC]}"
+		echo ""
+		echo ""
+		ls "${HOME}/.config/entries/" || echo -e "${colours[RED]}No journal entries found!${colours[NC]}"
+		echo ""
+		echo ""
+		echo -e "${colours[BRIGHT_CYAN]}||||||||||||||||||||||||||||||${colours[NC]}"
+		date_organizer
+		if date -d "${converted}" > /dev/null 2>&1;then
+			if [[ -f "${FILE}" ]];then
+				clear
+				sleep 1s
+				vim "${FILE}"
+			else
+				echo ""
+				echo ""
+				echo -e "${colours[RED]}Invalid Date!${colours[NC]}"
+			fi
+		else
+			echo ""
+			echo ""
+			echo -e "${colours[RED]}Specified entry doesn't exist${colours[NC]}"
+		fi
+		echo ""
+		echo ""
+		read -t 0.1 -n 1000 trash > /dev/null 2>&1
+		back
+	elif [[ ${option} == 4 ]];then
+		clear
+		sleep 0.5s
+		echo -e "${colours[RED]}||||||||<REMOVE MEMORIES>||||||||${colours[NC]}"
+		echo ""
+		echo ""
+		ls "${HOME}/.config/entries/" || echo -e "${colours[RED]}No journal entries found! ${colours[NC]}"
+		echo ""
+		echo ""
+		echo -e "${colours[BRIGHT_MAGNETA]}|||||||||||||||||||||||||||||${colours[NC]}"
+		date_organizer
+		if date -d "${converted}" > /dev/null 2>&1;then
+			if [[ -f "${FILE}" ]];then
+				clear
+				sleep 1s
+				rm "${FILE}"
+			else
+				echo ""
+				echo ""
+				echo -e "${colours[RED]}Invalid date${colours[NC]}"
+			fi
+		else
+			echo ""
+			echo ""
+			echo -e "${colours[RED]}Speicified entry doesn't exist${colours[NC]}"
+		fi
+		echo ""
+		echo ""
+		read -t 0.1 -n 1000 bin > /dev/null 2>&1
+		back
+	elif [[ ${option} == 5 ]];then
+		sleep 0.5s
+		echo ""
+		echo ""
+		read -t 0.1 -n 1000  TRASH > /dev/null 2>&1
+		text_animation "exiting journaling mode..." "RED"
+		echo ""
+		exit
+	fi
+
+done
