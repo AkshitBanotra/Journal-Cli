@@ -27,6 +27,8 @@ cd Journal-Cli
 chmod +x ./setup.sh
 ./setup.sh
 ```
+After this, simply run journal-cli in the terminal.
+
 ## License
 
 MIT License
