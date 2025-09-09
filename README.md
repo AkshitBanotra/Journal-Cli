@@ -26,6 +26,7 @@ Clone the repository and make the script executable:
 git clone https://github.com/your-username/journal-cli.git
 cd journal-cli
 chmod +x ./setup.sh
+./setup.sh
 ```
 ## License
 
