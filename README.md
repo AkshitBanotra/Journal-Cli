@@ -23,7 +23,7 @@ Clone the repository and make the script executable:
 
 ```bash
 git clone https://github.com/AkshitBanotra/Journal-Cli
-cd journal-cli
+cd Journal-Cli
 chmod +x ./setup.sh
 ./setup.sh
 ```
