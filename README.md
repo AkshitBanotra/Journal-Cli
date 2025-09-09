@@ -8,7 +8,6 @@
 * **View past entries** by selecting a date.
 * **Edit entries** interactively using Vim.
 * **Delete entries** easily by date.
-* Color-coded menus.
 * Fully terminal-based, lightweight, and requires no GUI or cloud services.
 
 ## Dependencies
@@ -23,7 +22,7 @@
 Clone the repository and make the script executable:
 
 ```bash
-git clone https://github.com/your-username/journal-cli.git
+git clone https://github.com/AkshitBanotra/Journal-Cli
 cd journal-cli
 chmod +x ./setup.sh
 ./setup.sh
