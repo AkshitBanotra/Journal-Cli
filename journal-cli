@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
-source "${HOME}/termfocus/animations"
+source "${HOME}/.config/journal-cli/tui"
 
-mkdir -p "${HOME}/.config/entries/"
+mkdir -p "${HOME}/.config/journal-cli/entries/"
 
 
 ########################################
@@ -28,13 +28,16 @@ date_organizer () {
 	Month="${search:3:2}"
 	Year="${search:6:4}"
 	converted="${Year}-${Month}-${Date}"
-	FILE="${HOME}/.config/entries/entry_${search}.txt"
+	FILE="${HOME}/.config/journal-cli/entries/entry_${search}.txt"
 	}
 
 ########################################
 
 while true;do
 	clear
+	figlet "JOURNAL-CLI" | lolcat
+	echo ""
+	echo ""
 	date "+%d-%m-%Y"
 	echo ""
 	echo ""
@@ -50,14 +53,14 @@ while true;do
 		clear
 		sleep 1s
 		journal="$(date "+%d-%m-%Y")"
-		vim "${HOME}/.config/entries/entry_${journal}.txt"
+		vim "${HOME}/.config/journal-cli/entries/entry_${journal}.txt"
 	elif [[ ${option} == 2 ]];then
 		clear
 		sleep 0.5s
 		echo -e "${colours[BRIGHT_GREEN]}|||||||<OLD LOGS>|||||||${colours[NC]}"
 		echo ""
 		echo ""
-		ls "${HOME}/.config/entries/" || echo -e "${colours[RED]}No Journal entries found!${colours[NC]}"
+		ls "${HOME}/.config/journal-cli/entries/" || echo -e "${colours[RED]}No Journal entries found!${colours[NC]}"
 		echo ""
 		echo ""
 		echo -e "${colours[BRIGHT_GREEN]}||||||||||||||||||||||||||||||||${colours[NC]}"
@@ -90,7 +93,7 @@ while true;do
 		echo -e "${colours[BRIGHT_CYAN]}||||||||<EDIT MEMORIES>|||||||||${colours[NC]}"
 		echo ""
 		echo ""
-		ls "${HOME}/.config/entries/" || echo -e "${colours[RED]}No journal entries found!${colours[NC]}"
+		ls "${HOME}/.config/journal-cli/entries/" || echo -e "${colours[RED]}No journal entries found!${colours[NC]}"
 		echo ""
 		echo ""
 		echo -e "${colours[BRIGHT_CYAN]}||||||||||||||||||||||||||||||${colours[NC]}"
@@ -120,7 +123,7 @@ while true;do
 		echo -e "${colours[RED]}||||||||<REMOVE MEMORIES>||||||||${colours[NC]}"
 		echo ""
 		echo ""
-		ls "${HOME}/.config/entries/" || echo -e "${colours[RED]}No journal entries found! ${colours[NC]}"
+		ls "${HOME}/.config/journal-cli/entries/" || echo -e "${colours[RED]}No journal entries found! ${colours[NC]}"
 		echo ""
 		echo ""
 		echo -e "${colours[BRIGHT_MAGNETA]}|||||||||||||||||||||||||||||${colours[NC]}"
@@ -149,8 +152,9 @@ while true;do
 		echo ""
 		echo ""
 		read -t 0.1 -n 1000  TRASH > /dev/null 2>&1
-		text_animation "exiting journaling mode..." "RED"
+		text_animation "exiting Journal-Cli..." "RED"
 		echo ""
+		clear
 		exit
 	fi
 
