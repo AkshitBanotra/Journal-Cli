@@ -1,9 +1,22 @@
 #!/usr/bin/env bash
 
+####################################################################
+#                                                                  #
+# journal-cli: Interactive CLI journaling tool using Bash          #
+# Stores journal entries in ~/.config/journal-cli/entries/         #
+# Allows creating, viewing, editing, and deleting entries easily.  #
+#                                                                  #
+####################################################################
+
+########################################
+
 source "${HOME}/.config/journal-cli/tui"
+
+# Load color codes and text animations (typewriter effect,etc.)
 
 mkdir -p "${HOME}/.config/journal-cli/entries/"
 
+# Ensure the entries directory exists
 
 ########################################
 
@@ -15,6 +28,8 @@ back () {
 		fi
 	done
 }
+
+# Waits for the user to press 'b' or 'B' to go back to the previous menu.
 
 ########################################
 
@@ -31,14 +46,20 @@ date_organizer () {
 	FILE="${HOME}/.config/journal-cli/entries/entry_${search}.txt"
 	}
 
+# Parses user input date, converts it to YYYY-MM-DD format, and sets FILE path.
+
 ########################################
 
 while true;do
 	clear
 	figlet "JOURNAL-CLI" | lolcat
+	# Display title with figlet + lolcat for colorful terminal output
 	echo ""
 	echo ""
 	date "+%d-%m-%Y"
+
+	# Show current date
+	
 	echo ""
 	echo ""
 
@@ -51,10 +72,15 @@ while true;do
 	read -s -n 1 option
 	if [[ ${option} == 1 ]];then
 		clear
-		sleep 1s
+		sleep 0.5s
 		journal="$(date "+%d-%m-%Y")"
 		vim "${HOME}/.config/journal-cli/entries/entry_${journal}.txt"
+
+		# Option 1: Start a new journal entry using vim, filename is today's date.
+
 	elif [[ ${option} == 2 ]];then
+		# Option 2: View past entries
+		# Lists all entries and prompts user to select a date.
 		clear
 		sleep 0.5s
 		echo -e "${colours[BRIGHT_GREEN]}|||||||<OLD LOGS>|||||||${colours[NC]}"
@@ -68,7 +94,7 @@ while true;do
 		if date -d "${converted}" > /dev/null  2>&1;then
 			if [[ -f "${FILE}" ]];then
 				clear
-				sleep 1s
+				sleep 0.5s
 				cat "${FILE}"
 			else
 				echo ""
@@ -86,8 +112,13 @@ while true;do
 		echo ""
 		echo -e "${colours[WHITE]}Enter 'b' for back.${colours[NC]}"
 		read -t 0.1 -n 1000 discard > /dev/null 2>&1
+
+		# Clear any buffered input to avoid accidental key presses.
+
 		back
 	elif [[ ${option} == 3 ]];then
+		# Option 3: Edit past entries
+		# Prompts for date, opens existing file in vim if found.
 		clear
 		sleep 0.5s
 		echo -e "${colours[BRIGHT_CYAN]}||||||||<EDIT MEMORIES>|||||||||${colours[NC]}"
@@ -101,7 +132,7 @@ while true;do
 		if date -d "${converted}" > /dev/null 2>&1;then
 			if [[ -f "${FILE}" ]];then
 				clear
-				sleep 1s
+				sleep 0.5s
 				vim "${FILE}"
 			else
 				echo ""
@@ -118,6 +149,8 @@ while true;do
 		read -t 0.1 -n 1000 trash > /dev/null 2>&1
 		back
 	elif [[ ${option} == 4 ]];then
+		# Option 4: Delete an entry
+		# Prompts for date, deletes the file if it exists
 		clear
 		sleep 0.5s
 		echo -e "${colours[RED]}||||||||<REMOVE MEMORIES>||||||||${colours[NC]}"
@@ -131,7 +164,7 @@ while true;do
 		if date -d "${converted}" > /dev/null 2>&1;then
 			if [[ -f "${FILE}" ]];then
 				clear
-				sleep 1s
+				sleep 0.5s
 				rm "${FILE}"
 			else
 				echo ""
@@ -148,6 +181,8 @@ while true;do
 		read -t 0.1 -n 1000 bin > /dev/null 2>&1
 		back
 	elif [[ ${option} == 5 ]];then
+		# Option 5: Exit the app
+		# Plays the exit animation and closes the script.
 		sleep 0.5s
 		echo ""
 		echo ""
