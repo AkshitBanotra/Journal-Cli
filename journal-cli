@@ -33,6 +33,13 @@ back () {
 
 ########################################
 
+specified_back () {
+	echo -e "${colours[RED]}Press 'b' for back..."
+	back
+}
+
+########################################
+
 date_organizer () {
 	echo ""
 	echo ""
@@ -115,7 +122,7 @@ while true;do
 
 		# Clear any buffered input to avoid accidental key presses.
 
-		back
+		specified_back
 	elif [[ ${option} == 3 ]];then
 		# Option 3: Edit past entries
 		# Prompts for date, opens existing file in vim if found.
@@ -147,7 +154,7 @@ while true;do
 		echo ""
 		echo ""
 		read -t 0.1 -n 1000 trash > /dev/null 2>&1
-		back
+		specified_back
 	elif [[ ${option} == 4 ]];then
 		# Option 4: Delete an entry
 		# Prompts for date, deletes the file if it exists
@@ -179,7 +186,7 @@ while true;do
 		echo ""
 		echo ""
 		read -t 0.1 -n 1000 bin > /dev/null 2>&1
-		back
+		specified_back
 	elif [[ ${option} == 5 ]];then
 		# Option 5: Exit the app
 		# Plays the exit animation and closes the script.
