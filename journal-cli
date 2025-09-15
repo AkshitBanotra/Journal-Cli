@@ -122,7 +122,7 @@ while true;do
 
 		# Clear any buffered input to avoid accidental key presses.
 
-		specified_back
+		back
 	elif [[ ${option} == 3 ]];then
 		# Option 3: Edit past entries
 		# Prompts for date, opens existing file in vim if found.
