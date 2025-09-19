@@ -13,13 +13,15 @@ rm -rf "${HOME}/Journal-Cli"
 
 sudo echo "alias journal-cli=\"${HOME}/.config/journal-cli/journal-cli\"" >> "${HOME}/.bashrc"
 
+sleep 0.2s
+
 source "${HOME}/.bashrc"
 
 rm -rf "${HOME}/.config/journal-cli/setup.sh"
 
-echo "Done!"
-
 sleep 0.2s
+
+echo "Done!"
 
 clear
 
