@@ -2,6 +2,9 @@
 
 **Journal-Cli** is a simple Bash script for journaling directly from your terminal. Create, view, edit, and delete daily entries quickly — all stored locally in `~/.config/journal-cli/entries/`. Built for personal use, but useful for anyone who prefers **fast, local, terminal-first journaling**.
 
+<img width="1920" height="1080" alt="Screenshot" src="https://github.com/user-attachments/assets/3425d3dc-efd0-479a-8865-f5b3a49371be" />
+
+
 ## Features
 
 * **Create new entries** with today’s date automatically.
